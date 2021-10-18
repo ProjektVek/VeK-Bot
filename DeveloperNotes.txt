@@ -1,0 +1,25 @@
+18/10/21 - VeK Bot Main Version Development Started
+
+
+
+
+--------------------------------------------------------------------------------------------------
+Notes:
+--------------------------------------------------------------------------------------------------
+
+Things to learn:
+    How replit db works - Crutial
+    How to use discord.py ext
+    OOP in Python
+    
+    Extras:
+        IA Development
+        Machine Learning Development
+        Natural Language Processing
+
+Features for future:
+    Dice Rolling
+    RPG elements for users in the server
+    Integrations with Music Players(Spotify, Tidal...)
+    Integrations with Youtube
+    Internet Search Like Telegram - If Possible
