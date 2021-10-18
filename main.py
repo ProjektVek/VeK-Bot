@@ -1,8 +1,8 @@
 #Imports
 #-------------------------------------------------------------
 import discord #importing discord library
-import json #for work with json
 import os #importing os commands
+import json #for work with json
 import random #random generator library
 from replit import db #working with replit database
 from keep_alive import keep_alive #keeping the bot awake
@@ -40,7 +40,7 @@ def list_trigger_words():
 
 #Function for defining new words as triggers
 def define_new_trigger_word(message):
-    
+    #print('Entrou')
     if "trigger_words" in db.keys(): #verifies if there is a key called trigger_words
         trigger_words = db["trigger_words"] #getting all trigger words from database
         if isinstance(trigger_words,str):
@@ -180,16 +180,69 @@ async def on_message(message): #triggers on receiving message, and receive messa
     #New Words
     #-------------------------------------------------------------
 
+        #Trigger Words
+        #-------------------------------------------------------------
     #listing trigger words
     if message.content.startswith('vek trigger list'): #if it is the trigger list command, send the all trigger words list
         await message.channel.send(list_trigger_words()) #tries to define and send the message
 
     #adding new trigger word
     if message.content.startswith('vek new trigger word') or message.content.startswith('vek nova palavra trigger'): #the model of message will be 'vek new trigger word "<trigger_word>"'
-        await message.channel.send('Comando recebido!') 
+        #await message.channel.send('Comando recebido!') 
         new_trigger = message.content.split('"')[1]
-        await message.channel.send('"{}"'.format(new_trigger)) 
+        #await message.channel.send('"{}"'.format(new_trigger)) 
         await message.channel.send(define_new_trigger_word(new_trigger)) #tries to define and send the message
+
+    #deleting trigger words
+    condition = message.content.startswith('vek delete trigger word') 
+    condition = condition or message.content.startswith('vek delete trigger')
+    condition = condition or message.content.startswith('vek delete palavra trigger')
+    if condition: #if any of conditions above were matched
+        trigger_word = message.content.split('"')[1]
+        await message.channel.send(delete_trigger(trigger_word))
+
+        #Random phrases
+        #-------------------------------------------------------------
+    #listing random phrases
+    condition = message.content.startswith('vek random phrases list')
+    condition = condition or message.content.startswith('vek list random phrases')
+    condition = condition or message.content.startswith('vek list random phrase')
+    condition = condition or message.content.startswith('vek random phrase list')
+    if condition: #if any of conditions above were matched
+        await message.channel.send(list_random_phrases())
+
+    #inserting new random phrase
+    condition = message.content.startswith('vek new random phrase')
+    condition = condition or message.content.startswith('vek insert random phrase')
+    condition = condition or message.content.startswith('vek insert new random phrase')
+    condition = condition or message.content.startswith('vek new phrase')
+    condition = condition or message.content.startswith('vek insert new phrase')
+    condition = condition or message.content.startswith('vek insert phrase')
+    if condition: #if any of conditions above were matched
+        random_phrase = message.content.split('"')[1]
+        await message.channel.send(define_new_random_phrase(random_phrase))
+
+    #deleting existing random phrase
+    condition = message.content.startswith('vek delete random phrase')
+    condition = condition or message.content.startswith('vek delete phrase')
+    condition = condition or message.content.startswith('vek delete frase')
+    condition = condition or message.content.startswith('vek delete frase aleatoria')
+    if condition: #if any of conditions above were matched
+        random_phrase = message.content.split('"')[1] #get phrase
+        await message.channel.send(delete_random_phrase(random_phrase)) #tries to delete phrase
+
+    #calling random phrase by command
+    condition = message.content.startswith('vek call random phrase')
+    condition = condition or message.content.startswith('vek call phrase')
+    condition = condition or message.content.startswith('vek diga frase')
+    condition = condition or message.content.startswith('vek diga frase aleatoria')
+    if condition: #if any of conditions above were matched
+        await message.channel.send(call_random_phrase()) #call phrase
+
+    #calling phrase if a trigger word is detected
+    trigger_words = db["trigger_words"]
+    if any(word in message.content for word in trigger_words): #if it finds a trigger word in message
+        await message.channel.send(call_random_phrase()) #send a random phrase
 
 keep_alive()    
 token = os.environ['token']

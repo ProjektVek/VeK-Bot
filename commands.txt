@@ -6,3 +6,38 @@ Saudações:
 "vek ola/olá"
 "vek oi"
 "vek hi"
+
+Trigger Words:
+    - Listando trigger words:
+        "vek trigger list"
+    - Adicionando trigger word:
+        'vek new trigger word "<trigger_word>"'
+        'vek nova palavra trigger "<trigger_word>"'
+    - Deletando trigger word:
+        'vek delete trigger word "<trigger_word>"'
+        'vek delete trigger "<trigger_word>"'
+        'vek delete palavra trigger "<trigger_word>"'
+
+Random Phrases:
+    -Listando Random Phrases:
+        'vek random phrases list'
+        'vek list random phrases'
+        'vek list random phrase'
+        'vek random phrase list'
+    -Inserindo Random Phrases:
+        'vek new random phrase "<random_phrase>"'
+        'vek insert random phrase "<random_phrase>"'
+        'vek insert new random phrase "<random_phrase>"'
+        'vek new phrase "<random_phrase>"'
+        'vek insert new phrase "<random_phrase>"'
+        'vek insert phrase "<random_phrase>"'
+    -Deletando Random Phrases:
+        'vek delete random phrase "<random_phrase>"'
+        'vek delete phrase "<random_phrase>"'
+        'vek delete frase "<random_phrase>"'
+        'vek delete frase aleatoria "<random_phrase>"'
+    -Chamando Random Phrase sem Trigger Word:
+        'vek call random phrase'
+        'vek call phrase'
+        'vek diga frase'
+        'vek diga frase aleatoria'
