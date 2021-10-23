@@ -6,6 +6,7 @@ import json #for work with json
 import random #random generator library
 from replit import db #working with replit database
 from keep_alive import keep_alive #keeping the bot awake
+from pathlib import Path #Library to read txt files
 
 client = discord.Client() #Declaring discord client
 
@@ -177,13 +178,126 @@ async def on_message(message): #triggers on receiving message, and receive messa
     if message.content==('vek hi'):
         await message.channel.send('Hi {0}!'.format(author)) #says: "Olá {username}"
 
+    #Help
+    #-------------------------------------------------------------
+    #Help Command
+    conditions = message.content.startswith('vek help')
+    conditions += conditions or message.content.startswith('vek ajuda')
+    conditions += conditions or message.content.startswith('vek imprima ajuda')
+    conditions += conditions or message.content.startswith('vek imprimir comandos')
+    conditions += conditions or message.content.startswith('vek me ajuda')
+    conditions += conditions or message.content.startswith('vek me ajude')
+    conditions += conditions or message.content.startswith('vek commands')
+    conditions += conditions or message.content.startswith('vek print commands')
+    conditions += conditions or message.content.startswith('vek list commands')
+    conditions += conditions or message.content.startswith('vek comandos')
+    conditions += conditions or message.content.startswith('vek liste comandos')
+    conditions += conditions or message.content.startswith('vek lista comandos')
+    conditions += conditions or message.content.startswith('vek imprima comandos')
+    conditions += conditions or message.content.startswith('vek imprimir comandos')
+    if conditions:
+        archive_text = Path('commands.txt').read_text()
+        help_text = 'Aqui estão todos os meus comandos padrão(eu acho):'
+        await message.channel.send(help_text)
+        
+        #Splitting the text if the length is greater than 1900
+        if len(archive_text)>=1900:
+            help_text = []
+            remaining_text = archive_text
+            if '\n' in archive_text:
+                #await message.channel.send(f'[Debug] Entrou - "Size": {len(archive_text)}')
+                while len(remaining_text) > 1900:
+                    #await message.channel.send(f'[Debug] Tá no Loop - "Size": {len(archive_text)}')
+                    last_break = 0
+                    i = 0
+                    for char in remaining_text[0:1899]:
+                        if char == '\n':
+                            last_break = i
+                        i += 1
+                    help_text.append(remaining_text[:last_break])
+                    remaining_text = remaining_text[last_break:]
+                help_text.append(remaining_text[:last_break])
+        else:
+            help_text = [archive_text]
+        #await message.channel.send(f'[Debug] List Size: {len(help_text)}') 
+        for splitted_part in help_text:
+            await message.channel.send(f'```{splitted_part}```') 
+        """
+        if len(help_text):
+            help_text = 'Mensagem tá muito grande, meu escravo(VeK Original) deve tá workando pra consertar, guenta aí'
+        await message.channel.send(help_text)
+        """
+
+    #Lorem
+    #-------------------------------------------------------------
+    
+    #Printing lorem ipsum 
+    conditions = message.content.startswith('vek lorem')
+    conditions += conditions or message.content.startswith('vek lorem ipsum')
+    if conditions:
+        archive_text = Path('lorem.txt').read_text()
+        
+        #counting line breaks:
+        line_breaks = 0
+        for char in archive_text:
+            if char == "\n":
+                line_breaks += 1
+        """
+        lastBreak = 0 #text last break
+        #Getting text last Break
+        if '/n' in archiveText:
+            i = 0
+            for char in archiveText:
+                if char == '\n':
+                    lastBreak = i
+                i = i + 1
+        """
+        text_splitted = []
+        #Splitting the text if the length is greater than 1900
+        if len(archive_text)>=1900:
+            remaining_text = archive_text
+            if '\n' in archive_text:
+                #await message.channel.send(f'[Debug] Entrou - "Size": {len(archive_text)}')
+                while len(remaining_text) > 1900:
+                    #await message.channel.send(f'[Debug] Tá no Loop - "Size": {len(archive_text)}')
+                    last_break = 0
+                    i = 0
+                    for char in remaining_text[0:1899]:
+                        if char == '\n':
+                            last_break = i
+                        i += 1
+                    text_splitted.append(remaining_text[:last_break])
+                    remaining_text = remaining_text[last_break:]
+                text_splitted.append(remaining_text[:last_break])
+                
+            #text_splitted = [archiveText[i:i+n] for i in range(0, len(archiveText), n)] #splitting text algorithm
+        else:
+            text_splitted = archive_text
+        #await message.channel.send(f'[Debug] "Size": {len(text_splitted)}')	
+        for splited in text_splitted: #Sending splitted message
+            await message.channel.send(splited)
+        #await message.channel.send(f'[Debug] Line Breaks Found: {line_breaks}')
+        
+    
     #New Words
     #-------------------------------------------------------------
 
         #Trigger Words
         #-------------------------------------------------------------
     #listing trigger words
-    if message.content.startswith('vek trigger list'): #if it is the trigger list command, send the all trigger words list
+    conditions = message.content.startswith('vek trigger list')
+    conditions += conditions or message.content.startswith('vek triggers list')
+    conditions += conditions or message.content.startswith('vek list trigger')
+    conditions += conditions or message.content.startswith('vek list triggers')
+    conditions += conditions or message.content.startswith('vek print trigger list')
+    conditions += conditions or message.content.startswith('vek print triggers list')
+    conditions += conditions or message.content.startswith('vek lista gatilhos')
+    conditions += conditions or message.content.startswith('vek lista gatilho')
+    conditions += conditions or message.content.startswith('vek listar palavra gatilho')
+    conditions += conditions or message.content.startswith('vek listar palavras gatilho')
+    conditions += conditions or message.content.startswith('vek listar palavra trigger')
+    conditions += conditions or message.content.startswith('vek listar palavras trigger')
+    if conditions: #if it is the trigger list command, send the all trigger words list
         await message.channel.send(list_trigger_words()) #tries to define and send the message
 
     #adding new trigger word
@@ -209,7 +323,7 @@ async def on_message(message): #triggers on receiving message, and receive messa
     condition = condition or message.content.startswith('vek list random phrase')
     condition = condition or message.content.startswith('vek random phrase list')
     if condition: #if any of conditions above were matched
-        await message.channel.send(list_random_phrases())
+        await message.channel.send(list_random_phrases()) #list phrases
 
     #inserting new random phrase
     condition = message.content.startswith('vek new random phrase')
@@ -219,8 +333,8 @@ async def on_message(message): #triggers on receiving message, and receive messa
     condition = condition or message.content.startswith('vek insert new phrase')
     condition = condition or message.content.startswith('vek insert phrase')
     if condition: #if any of conditions above were matched
-        random_phrase = message.content.split('"')[1]
-        await message.channel.send(define_new_random_phrase(random_phrase))
+        random_phrase = message.content.split('"')[1] #get phrase
+        await message.channel.send(define_new_random_phrase(random_phrase)) #tries to insert phrase
 
     #deleting existing random phrase
     condition = message.content.startswith('vek delete random phrase')
@@ -243,7 +357,7 @@ async def on_message(message): #triggers on receiving message, and receive messa
     trigger_words = db["trigger_words"]
     if any(word in message.content for word in trigger_words): #if it finds a trigger word in message
         await message.channel.send(call_random_phrase()) #send a random phrase
-
+        
 keep_alive()    
 token = os.environ['token']
 client.run(token) #Running the bot

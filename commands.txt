@@ -1,15 +1,41 @@
+Ajuda:
+'vek help'
+'vek ajuda'
+'vek imprima ajuda'
+'vek imprimir comandos'
+'vek me ajuda'
+'vek me ajude'
+'vek commands'
+'vek print commands'
+'vek list commands'
+'vek comandos'
+'vek liste comandos'
+'vek lista comandos'
+'vek imprima comandos'
+'vek imprimir comandos'
+
 Saudações:
-"vek"
-"vek hello"
-"vek hello world"
-"vek salve"
-"vek ola/olá"
-"vek oi"
-"vek hi"
+'vek'
+'vek hello'
+'vek hello world'
+'vek salve'
+'vek ola/olá'
+'vek oi'
+'vek hi'
 
 Trigger Words:
     - Listando trigger words:
-        "vek trigger list"
+        'vek trigger list'
+        'vek triggers list'
+        'vek list trigger'
+        'vek list triggers'
+        'vek print trigger list'
+        'vek print triggers list'
+        'vek lista gatilhos'
+        'vek listar palavra gatilho'
+        'vek listar palavras gatilho'
+        'vek listar palavra trigger'
+        'vek listar palavras trigger'
     - Adicionando trigger word:
         'vek new trigger word "<trigger_word>"'
         'vek nova palavra trigger "<trigger_word>"'
@@ -41,3 +67,8 @@ Random Phrases:
         'vek call phrase'
         'vek diga frase'
         'vek diga frase aleatoria'
+    
+Outros:
+    -Lorem Ipsum:
+        'vek lorem ipsum'
+        'vek lorem'
